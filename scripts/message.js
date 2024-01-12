@@ -1,5 +1,5 @@
 // TODO: hiding the webhook URL in cloudflare /functions
-const webhookURL = "https://discord.com/api/webhooks/1189466291547951174/AvN625D6EkFf6NGXPSRmBsYW4f1i0DrSdMRxVV2PRS_2bjpIPWPulAjS2e-uQ1vipyz0";
+const webhookURL = "HENTAIZ_KEY";
 const messageInput = document.getElementById("message-input");
 
 let lastMessageTime = 0;
