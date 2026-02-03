@@ -1,5 +1,5 @@
 // TODO: hiding the webhook URL in cloudflare /functions
-const webhookURL = "HENTAIZ_KEY";
+const webhookURL = "xxx";
 const messageInput = document.getElementById("message-input");
 
 let lastMessageTime = 0;
