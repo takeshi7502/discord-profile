@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Discord Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .panel {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .list-container {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+
+        .list-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .list-item input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.9em;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-add {
+            background: #3b82f6;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .btn-add:hover {
+            background: #2563eb;
+        }
+
+        .save-section {
+            position: sticky;
+            bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 2px solid #10b981;
+        }
+
+        .status-message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 2px solid #ef4444;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .social-item {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .social-item input {
+            margin-bottom: 10px;
+        }
+
+        .role-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .role-item input {
+            flex: 1;
+        }
+
+        .role-item select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Admin Panel</h1>
+            <p>Quản lý Discord Profile của bạn</p>
+        </div>
+
+        <!-- Profile Info -->
+        <div class="panel">
+            <h2>👤 Thông Tin Profile</h2>
+            <div class="form-group">
+                <label>Display Name</label>
+                <input type="text" id="displayName" placeholder="Takeshi">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="takeshi7502">
+                </div>
+                <div class="form-group">
+                    <label>Pronouns</label>
+                    <input type="text" id="pronouns" placeholder="waku waku desu yo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea id="bio" placeholder="Fan ANIME"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Website</label>
+                <input type="url" id="website" placeholder="https://takeshi.dev">
+            </div>
+        </div>
+
+        <!-- Images -->
+        <div class="panel">
+            <h2>🖼️ Hình Ảnh</h2>
+            <div class="form-group">
+                <label>Avatar Path</label>
+                <input type="text" id="avatar" placeholder="./data/Bocchi.png">
+            </div>
+            <div class="form-group">
+                <label>Effect Image URL</label>
+                <input type="text" id="effect" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>Status Icon</label>
+                <input type="text" id="status" placeholder="./data/status/offline.svg">
+            </div>
+        </div>
+
+        <!-- Decorations -->
+        <div class="panel">
+            <h2>✨ Avatar Decorations</h2>
+            <div class="form-group">
+                <label>Decoration Files (filename only, sẽ tự thêm ./data/decoration/)</label>
+                <div id="decorations-list" class="list-container"></div>
+                <button class="btn btn-add" onclick="addDecoration()">+ Thêm Decoration</button>
+            </div>
+            <div class="form-group">
+                <label>Decoration Interval (ms)</label>
+                <input type="number" id="decorationInterval" placeholder="5000">
+            </div>
+        </div>
+
+        <!-- Banners -->
+        <div class="panel">
+            <h2>🌄 Banner Images</h2>
+            <div class="form-group">
+                <label>Banner URLs</label>
+                <div id="banners-list" class="list-container"></div>
+                <button class="btn btn-add" onclick="addBanner()">+ Thêm Banner</button>
+            </div>
+            <div class="form-group">
+                <label>Banner Interval (ms)</label>
+                <input type="number" id="bannerInterval" placeholder="10000">
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="panel">
+            <h2>🔗 Social Links</h2>
+            <div id="social-links"></div>
+            <button class="btn btn-add" onclick="addSocialLink()">+ Thêm Social Link</button>
+        </div>
+
+        <!-- Settings -->
+        <div class="panel">
+            <h2>⚙️ Cài Đặt</h2>
+            <div class="form-group">
+                <label>Audio File Path</label>
+                <input type="text" id="audioFile" placeholder="./data/Weathering_with_you_Lofi.mp3">
+            </div>
+            <div class="form-group">
+                <label>Audio Volume (0.0 - 1.0)</label>
+                <input type="number" step="0.1" min="0" max="1" id="audioVolume" placeholder="0.2">
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="save-section">
+            <button class="btn btn-success" onclick="saveConfig()" style="font-size: 1.2em; padding: 15px 40px;">
+                💾 LƯU CẤU HÌNH
+            </button>
+            <div id="status-message" class="status-message"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/config';
+        let currentConfig = {};
+
+        // Load config on page load
+        window.addEventListener('DOMContentLoaded', loadConfig);
+
+        async function loadConfig() {
+            try {
+                const response = await fetch(API_URL);
+                const result = await response.json();
+
+                if (result.success) {
+                    currentConfig = result.data;
+                    populateForm();
+                    showStatus('Config loaded successfully!', 'success');
+                }
+            } catch (error) {
+                showStatus('Error loading config: ' + error.message, 'error');
+            }
+        }
+
+        function populateForm() {
+            // Profile
+            document.getElementById('displayName').value = currentConfig.profile.displayName;
+            document.getElementById('username').value = currentConfig.profile.username;
+            document.getElementById('pronouns').value = currentConfig.profile.pronouns;
+            document.getElementById('bio').value = currentConfig.profile.bio;
+            document.getElementById('website').value = currentConfig.profile.website;
+
+            // Images
+            document.getElementById('avatar').value = currentConfig.images.avatar;
+            document.getElementById('effect').value = currentConfig.images.effect;
+            document.getElementById('status').value = currentConfig.images.status;
+
+            // Decorations
+            renderDecorations();
+
+            // Banners
+            renderBanners();
+
+            // Social Links
+            renderSocialLinks();
+
+            // Settings
+            document.getElementById('decorationInterval').value = currentConfig.settings.decorationInterval;
+            document.getElementById('bannerInterval').value = currentConfig.settings.bannerInterval;
+            document.getElementById('audioFile').value = currentConfig.settings.audioFile;
+            document.getElementById('audioVolume').value = currentConfig.settings.audioVolume;
+        }
+
+        function renderDecorations() {
+            const container = document.getElementById('decorations-list');
+            container.innerHTML = '';
+            currentConfig.images.decorations.forEach((deco, index) => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <input type="text" value="${deco}" onchange="updateDecoration(${index}, this.value)">
+                    <button class="btn btn-danger" onclick="removeDecoration(${index})">✕</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderBanners() {
+            const container = document.getElementById('banners-list');
+            container.innerHTML = '';
+            currentConfig.images.banners.forEach((banner, index) => {
+                const div = document.createElement('div');
+                div.className = 'list-item';
+                div.innerHTML = `
+                    <input type="text" value="${banner}" onchange="updateBanner(${index}, this.value)">
+                    <button class="btn btn-danger" onclick="removeBanner(${index})">✕</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderSocialLinks() {
+            const container = document.getElementById('social-links');
+            container.innerHTML = '';
+            currentConfig.socialLinks.forEach((link, index) => {
+                const div = document.createElement('div');
+                div.className = 'social-item';
+                div.innerHTML = `
+                    <input type="text" placeholder="Platform (youtube, twitter, etc)" value="${link.platform}" 
+                        onchange="updateSocialLink(${index}, 'platform', this.value)">
+                    <input type="text" placeholder="Username" value="${link.username}" 
+                        onchange="updateSocialLink(${index}, 'username', this.value)">
+                    <input type="text" placeholder="URL" value="${link.url}" 
+                        onchange="updateSocialLink(${index}, 'url', this.value)">
+                    <input type="text" placeholder="Icon Path" value="${link.icon}" 
+                        onchange="updateSocialLink(${index}, 'icon', this.value)">
+                    <button class="btn btn-danger" onclick="removeSocialLink(${index})">✕ Xóa</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function addDecoration() {
+            currentConfig.images.decorations.push('new-decoration.png');
+            renderDecorations();
+        }
+
+        function updateDecoration(index, value) {
+            currentConfig.images.decorations[index] = value;
+        }
+
+        function removeDecoration(index) {
+            currentConfig.images.decorations.splice(index, 1);
+            renderDecorations();
+        }
+
+        function addBanner() {
+            currentConfig.images.banners.push('https://');
+            renderBanners();
+        }
+
+        function updateBanner(index, value) {
+            currentConfig.images.banners[index] = value;
+        }
+
+        function removeBanner(index) {
+            currentConfig.images.banners.splice(index, 1);
+            renderBanners();
+        }
+
+        function addSocialLink() {
+            currentConfig.socialLinks.push({
+                platform: '',
+                username: '',
+                url: '',
+                icon: './data/platforms/'
+            });
+            renderSocialLinks();
+        }
+
+        function updateSocialLink(index, field, value) {
+            currentConfig.socialLinks[index][field] = value;
+        }
+
+        function removeSocialLink(index) {
+            currentConfig.socialLinks.splice(index, 1);
+            renderSocialLinks();
+        }
+
+        async function saveConfig() {
+            // Collect all form data
+            currentConfig.profile.displayName = document.getElementById('displayName').value;
+            currentConfig.profile.username = document.getElementById('username').value;
+            currentConfig.profile.pronouns = document.getElementById('pronouns').value;
+            currentConfig.profile.bio = document.getElementById('bio').value;
+            currentConfig.profile.website = document.getElementById('website').value;
+
+            currentConfig.images.avatar = document.getElementById('avatar').value;
+            currentConfig.images.effect = document.getElementById('effect').value;
+            currentConfig.images.status = document.getElementById('status').value;
+
+            currentConfig.settings.decorationInterval = parseInt(document.getElementById('decorationInterval').value);
+            currentConfig.settings.bannerInterval = parseInt(document.getElementById('bannerInterval').value);
+            currentConfig.settings.audioFile = document.getElementById('audioFile').value;
+            currentConfig.settings.audioVolume = parseFloat(document.getElementById('audioVolume').value);
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(currentConfig)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showStatus('✅ Cấu hình đã được lưu thành công!', 'success');
+                } else {
+                    showStatus('❌ Lỗi: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('❌ Lỗi khi lưu: ' + error.message, 'error');
+            }
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status-message');
+            statusEl.textContent = message;
+            statusEl.className = 'status-message ' + type;
+            statusEl.style.display = 'block';
+
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

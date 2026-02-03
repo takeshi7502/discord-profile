@@ -33,18 +33,20 @@
 		<div class="profile-border box-color">
 			<div class="profile box-color">
 				<div class="effect">
-					<img id="effect-image" src="https://cdn.discordapp.com/assets/profile_effects/effects/b17d139f2e9/sakura/reducedMotion.png" alt="">
+					<img id="effect-image"
+						src="https://cdn.discordapp.com/assets/profile_effects/effects/b17d139f2e9/sakura/reducedMotion.png"
+						alt="">
 				</div>
 				<div class="banner">
-					<img id="banner-image" src="https://i.pinimg.com/originals/20/cc/a0/20cca0b04e912510dbfd30b4608972b6.gif" alt="" />
+					<img id="banner-image"
+						src="https://i.pinimg.com/originals/20/cc/a0/20cca0b04e912510dbfd30b4608972b6.gif" alt="" />
 				</div>
 				<div class="main-header">
 					<div class="image">
 						<div class="avatar">
 							<img class="box-color" id="avatar-image" alt="" aria-hidden="true"
 								src="./data/Bocchi.png" />
-							<img id="avatar-decoration"
-								src="./data/decoration/anime-nani.png" alt="" />
+							<img id="avatar-decoration" src="./data/decoration/anime-nani.png" alt="" />
 							<div class="status box-color">
 								<img id="status-image" src="./data/status/offline.svg" alt="" />
 							</div>
@@ -204,11 +206,11 @@
 										</div>
 									</a>
 								</div>
-								<!-- -->								
+								<!-- -->
 							</div>
 							<!-- chat -->
 							<div class="chat-container">
-								<input type="text" id="message-input" placeholder="Gửi tin nhắn đến @Takeshi" />										
+								<input type="text" id="message-input" placeholder="Gửi tin nhắn đến @Takeshi" />
 							</div>
 						</div>
 					</div>
@@ -227,9 +229,9 @@
 
 	<!-- Auto change decor -->
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		document.addEventListener("DOMContentLoaded", function () {
 			var decorationImages = ["anime-dang-yeu.png", "anime-do-mo-hoi.png", "anime-gian-du.png", "anime-hon-lia-kho-xac.png", "anime-mat-long-lanh.png", "anime-nani.png", "anime-toa-nang-luong.png", "fantasy-hoa-kiem.png", "fantasy-ma-thuat.png", "fantasy-tinh-linh.png", "a_57807030ab60f7ac0c4a1998aa091bbf.png" /* add */];
-			var intervalTime = 5000; 
+			var intervalTime = 5000;
 			var decorationImage = document.getElementById("avatar-decoration");
 			function changeDecoration() {
 				var randomImage = decorationImages[Math.floor(Math.random() * decorationImages.length)];
@@ -240,12 +242,12 @@
 	</script>
 
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		document.addEventListener("DOMContentLoaded", function () {
 			var bannerImages = ["https://i.pinimg.com/originals/20/cc/a0/20cca0b04e912510dbfd30b4608972b6.gif",
-		"https://i.pinimg.com/originals/f4/d7/de/f4d7de6463d3ada02058a094fd6917ac.gif",
-		"https://i.pinimg.com/originals/b4/78/39/b478392855802fec7a136625c0ef6f0b.gif",
-		"https://i.upanh.org/2023/12/26/ezgif.com-video-to-gif-converter1a1d2c030dc587b7.gif"];
-			var intervalTime = 10000; 
+				"https://i.pinimg.com/originals/f4/d7/de/f4d7de6463d3ada02058a094fd6917ac.gif",
+				"https://i.pinimg.com/originals/b4/78/39/b478392855802fec7a136625c0ef6f0b.gif",
+				"https://i.upanh.org/2023/12/26/ezgif.com-video-to-gif-converter1a1d2c030dc587b7.gif"];
+			var intervalTime = 10000;
 			var bannerImage = document.getElementById("banner-image");
 			function changeBanner() {
 				var randomImage = bannerImages[Math.floor(Math.random() * bannerImages.length)];
@@ -285,10 +287,12 @@
 			fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
-	
+
 	<script defer data-domain="takeshi.is-a.dev" src="https://analytics.is-a.dev/js/script.js"></script>
+	<!-- API Client - Load config from backend -->
+	<script src="./scripts/api-client.js"></script>
 	<script src="./scripts/script_static.js"></script>
-	<script src="./scripts/no_dev .js"></script>	
+	<script src="./scripts/no_dev .js"></script>
 	<script src="./scripts/message.js"></script>
 </body>
 
